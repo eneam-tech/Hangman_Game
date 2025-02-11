@@ -2,9 +2,17 @@ from random import choice
 from random import *
 from hangman_pics import HANGMANPICS #pics for the hangman
 
+import sys
+import os
+
+def resource_path(relative_path):
+    """ Get the absolute path to a resource, works for PyInstaller """
+    if getattr(sys, 'frozen', False):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
 
 def Print_Art():
-    hangman_art = "Hangman_Game\hangman_art.txt"
+    hangman_art = resource_path("hangman_art.txt")
     with open (hangman_art, 'r', encoding='utf-8') as file:
         for line in file:
             print(line, end="")
@@ -17,7 +25,7 @@ def Choose_Word():
     #Randomly choose a word from word list
     words_list = []
     #txt file ref
-    hangman_words = "Hangman_Game\hangman_words.txt"
+    hangman_words = resource_path("hangman_words.txt")
 
     with open(hangman_words, 'r', encoding='utf-8') as file:
         for line in file.readlines():
